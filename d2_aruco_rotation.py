@@ -4,11 +4,11 @@ import numpy as np
 import user_input as inp
 from mecanum_client import MecanumBLEClient
 
-DEVICE_NAME = "Therian00"
+DEVICE_NAME = "Therian01"
 CAMERA_INDEX = 1
 
 cap = cv2.VideoCapture(CAMERA_INDEX)
-dictionary = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_100)
+dictionary = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_101)
 detector = cv2.aruco.ArucoDetector(dictionary)
 
 car = MecanumBLEClient(device_name=DEVICE_NAME)
@@ -37,7 +37,7 @@ try:
             angle = (angle + np.pi) % (2 * np.pi) - np.pi
             
             error = angle - np.pi / 2
-            w = -error * 0.4
+            w = error * 1.0
             
             print(f"Angle: {np.degrees(angle):6.1f}° | Error: {np.degrees(error):6.1f}° | w: {w:5.2f}")
         

@@ -4,7 +4,7 @@ import numpy as np
 import user_input as inp
 from mecanum_client import MecanumBLEClient
 
-DEVICE_NAME = "Therian00"
+DEVICE_NAME = "Therian01"
 CAMERA_INDEX = 1
 
 cap = cv2.VideoCapture(CAMERA_INDEX)
@@ -50,7 +50,7 @@ try:
             angle = (angle + np.pi) % (2 * np.pi) - np.pi
             
             error = angle - np.pi / 2
-            w = -error * 0.5
+            w = error * 0.5
             
             alignment = 1 - abs(error) / np.pi
             auth = np.clip((alignment - 0.9) / 0.1, 0, 1)
@@ -66,7 +66,7 @@ try:
         if inp.is_pressed('q'):
             break
         
-        velocity = {'x': x, 'y': -y, 'w': w}
+        velocity = {'x': -y, 'y': x, 'w': w}
         car.set_velocity(velocity)
         
         cv2.imshow("ArUco Demo", frame)
